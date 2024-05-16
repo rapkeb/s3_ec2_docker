@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, Response
 from flask_sqlalchemy import SQLAlchemy
 import boto3
 
@@ -36,12 +36,32 @@ def index():
     return render_template('index.html')
 
 
+# Route to serve the index page
 @app.route('/hello/<username>')
 def hello(username):
+    # This renders the template that includes the image
+    return render_template('index.html', username=username, image_url="/image")
+
+
+# Route to serve the image
+@app.route('/image')
+def image():
+    # Presuming you have AWS credentials set up in your environment or using IAM roles in EC2
     s3 = boto3.client('s3')
-    bucket_name = 'rapkeb'
-    media_url = f'https://{bucket_name}.s3.amazonaws.com/welcome.jpeg'
-    return render_template('hello.html', username=username, media_url=media_url)
+    bucket_name = "rapkeb"
+    image_file = "welcome.jpeg"
+
+    # Get the image object from S3
+    image_object = s3.get_object(Bucket=bucket_name, Key=image_file)
+
+    # Serve the image as a response
+    return Response(
+        image_object['Body'].read(),
+        mimetype='image/jpeg',
+        headers={
+            "Content-Disposition": "inline; filename={}".format(image_file)
+        }
+    )
 
 
 if __name__ == '__main__':
