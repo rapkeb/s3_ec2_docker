@@ -40,7 +40,7 @@ def index():
 @app.route('/hello/<username>')
 def hello(username):
     # This renders the template that includes the image
-    return render_template('index.html', username=username, image_url="/image")
+    return render_template('hello.html', username=username, image_url="/image")
 
 
 # Route to serve the image
