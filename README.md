@@ -1,7 +1,7 @@
 # Flask User Registration App
 
 A simple Flask application for user registration with an SQLite database and image serving from AWS S3. 
-Dockerized for easy deployment on AWS using auto scaling with a launch template.
+Dockerized for easy deployment on AWS ec2 instances.
 
 ## Table of Contents
 
@@ -60,16 +60,16 @@ Upon successful registration, users are greeted on a welcome page that includes 
 
 3. **Step 3: Create a Load Balancer:**
     
-        - Create a load balancer to distribute traffic to instances in the auto scaling group.
-        - Choose the appropriate load balancer type (Application Load Balancer) and put him as internet-facing.
-        - Configure listeners and routing rules to forward incoming requests to the instances in the auto scaling group(port 80).
-        - Ensure the load balancer is associated with the appropriate security groups, subnets and target groups.
+    - Create a load balancer to distribute traffic to instances in the auto scaling group.
+    - Choose the appropriate load balancer type (Application Load Balancer) and put him as internet-facing.
+    - Configure listeners and routing rules to forward incoming requests to the instances in the auto scaling group(port 80).
+    - Ensure the load balancer is associated with the appropriate security groups, subnets and target groups.
      
 4. **Step 4: Create Target Groups:**
     
-        - Create target groups to group instances within the auto scaling group.
-        - Define health checks to monitor the status of instances in the target group.
-        - Associate the target group with the load balancer created in step 3.
+    - Create target groups to group instances within the auto scaling group.
+    - Define health checks to monitor the status of instances in the target group.
+    - Associate the target group with the load balancer created in step 3.
 
 
 ## Usage
@@ -79,8 +79,6 @@ Upon successful registration, users are greeted on a welcome page that includes 
 1. Access the application through the load balancer DNS name.
 2. Fill out the registration form with your username, email, and password.
 3. Submit the form to register.
-
-### Accessing the Welcome Page
 
 ### Accessing the Welcome Page
 
